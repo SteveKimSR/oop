@@ -18,18 +18,21 @@ Float::Float() {
     /**
      * value를 0으로 저장
      */
+	 this->value = 0;
 }
 
 Float::Float(double _value) {
     /**
      * 입력받은 double 값(_value)을 value에 저장
      */
+	 this->value = _value;
 }
 
 Float::Float(const std::string& str) {
     /**
      * Float 의 parse_string 함수를 통해 입력받은 문자열 값을 float 값으로 value에 저장
      */
+	 this->value = atof(str.c_str());
 }
 
 Number *Float::add(Number * num) {
@@ -60,8 +63,27 @@ Number *Float::add(Number * num) {
      *
      * enum 값은 INTEGER, FLOAT, COMPLEX 과 같이 접근 가능
      */
+	if (num->types() == INTEGER) {
+		Integer* _num = dynamic_cast<Integer*>(num);
+		this->set_val(this->value + _num->val());
+		delete(_num);
+		return this;
 
-    return nullptr;
+	} else if(num->types() == FLOAT) {
+		Float* _float = dynamic_cast<Float*>(num);
+		_float->set_val(this->value + _float->val());
+		delete(this);
+		return _float;
+
+	} else if (num->types() == COMPLEX) {
+		Complex* _complex = dynamic_cast<Complex*>(num);
+		_complex->set_val(this->value + _complex->real(), _complex->imag());
+		delete(this);
+		return _complex;
+
+	} else {
+		return nullptr;
+	}
 }
 
 Number *Float::sub(Number * num) {
@@ -69,8 +91,27 @@ Number *Float::sub(Number * num) {
      * this->value - num->value // num의 value는 private 이므로 호출 불가능 (단순 개념 설명임)
      * this의 값과 parameter로 들어온 num의 value를 빼는 함수
      */
+	if (num->types() == INTEGER) {
+		Integer* _num = dynamic_cast<Integer*>(num);
+		this->set_val(this->value - _num->val());
+		delete(_num);
+		return this;
 
-    return nullptr;
+	} else if(num->types() == FLOAT) {
+		Float* _float = dynamic_cast<Float*>(num);
+		_float->set_val(this->value - _float->val());
+		delete(this);
+		return _float;
+
+	} else if (num->types() == COMPLEX) {
+		Complex* _complex = dynamic_cast<Complex*>(num);
+		_complex->set_val(this->value - _complex->real(), _complex->imag());
+		delete(this);
+		return _complex;
+
+	} else {
+		return nullptr;
+	}
 }
 
 Number *Float::mul(Number *num) {
@@ -78,8 +119,27 @@ Number *Float::mul(Number *num) {
      * this->value * num->value // num의 value는 private 이므로 호출 불가능 (단순 개념 설명임)
      * this의 값과 parameter로 들어온 num의 value를 곱하는 함수
      */
+	if (num->types() == INTEGER) {
+		Integer* _num = dynamic_cast<Integer*>(num);
+		this->set_val(this->value * _num->val());
+		delete(_num);
+		return this;
 
-    return nullptr;
+	} else if(num->types() == FLOAT) {
+		Float* _float = dynamic_cast<Float*>(num);
+		_float->set_val(this->value * _float->val());
+		delete(this);
+		return _float;
+
+	} else if (num->types() == COMPLEX) {
+		Complex* _complex = dynamic_cast<Complex*>(num);
+		_complex->set_val(this->value * _complex->real(), this->value * _complex->imag());
+		delete(this);
+		return _complex;
+
+	} else {
+		return nullptr;
+	}
 }
 
 Number *Float::div(Number *num) {
@@ -90,29 +150,45 @@ Number *Float::div(Number *num) {
      * Type이 COMPLEX 경우 nullptr 를 반환한다.
      * 이 때는 this와 num 모두 delete하지 않는다.
      */
+	if (num->types() == INTEGER) {
+		Integer* _num = dynamic_cast<Integer*>(num);
+		this->set_val(this->value / _num->val());
+		delete(_num);
+		return this;
 
-    return nullptr;
+	} else if(num->types() == FLOAT) {
+		Float* _float = dynamic_cast<Float*>(num);
+		_float->set_val(this->value / _float->val());
+		delete(this);
+		return _float;
+
+	} else if (num->types() == COMPLEX) {
+		return nullptr;
+
+	} else {
+		return nullptr;
+	}
 }
 
 void Float::set_val(double val) {
     /**
      * 입력받은 val을 value값으로 저장하는 함수 (value의 setter)
      */
-
+	this->value = val;
 }
 
 double Float::val() const {
     /**
      * value 값을 return하는 함수 (value의 getter)
      */
-    return -1; // 구현한 거 아님;;
+    return this->value; // 구현한 거 아님;;
 }
 
 Number::type Float::types() const {
     /**
      * Number의 enum 값인 FLOAT 값을 반환
      */
-    return 0; // 구현한 거 아님!
+    return FLOAT; // 구현한 거 아님!
 }
 
 std::string Float::to_string() const {

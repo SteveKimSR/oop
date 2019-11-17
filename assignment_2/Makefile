@@ -1,6 +1,6 @@
 .SUFFIXES: .cpp .o
 
-OBJECTS = Complex.o Float.o Integer.o test.o
+OBJECTS = Integer.o Float.o Complex.o test.o
 
 CXX = g++
 CPPFLAGS = -c

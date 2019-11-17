@@ -11,7 +11,7 @@ Complex::Complex() {
      * std 네임 스페이스의 make_pair를 통해 pair 객체 생성 가능
      * real과 imag에 각각 0을 대입
      */
-
+	this->value = std::make_pair(0, 0);
 }
 
 Complex::Complex(float _val1, float _val2) {
@@ -19,7 +19,7 @@ Complex::Complex(float _val1, float _val2) {
      * std 네임 스페이스의 make_pair를 통해 pair 객체 생성 가능
      * real과 imag에 각각 _val1, _val2를 대입
      */
-
+	 this->value = std::make_pair(_val1, _val2);
 }
 
 Number *Complex::add(Number * num) {
@@ -50,8 +50,24 @@ Number *Complex::add(Number * num) {
      *
      * enum 값은 INTEGER, FLOAT, COMPLEX 과 같이 접근 가능
      */
-
-    return nullptr;
+	if (num->types() == INTEGER) {
+		Integer* _num = dynamic_cast<Integer*>(num);
+		this->set_val(this->real() + _num->val(), this->imag());
+		delete(_num);
+		return this;
+	} else if (num->types() == FLOAT){
+		Float* _float = dynamic_cast<Float*>(num);
+		this->set_val(this->real() + _float->val(), this->imag());
+		delete(_float);
+		return this;
+	} else if(num->types() == COMPLEX) {
+		Complex* _complex = dynamic_cast<Complex*>(num);
+		this->set_val(this->real() + _complex->real(), this->imag() + _complex->imag());
+		delete(_complex);
+		return this;
+	} else {
+		return nullptr;
+	}
 }
 
 Number *Complex::sub(Number * num) {
@@ -59,8 +75,24 @@ Number *Complex::sub(Number * num) {
      * this->value - num->value // num의 value는 private 이므로 호출 불가능 (단순 개념 설명임)
      * this의 값과 parameter로 들어온 num의 value를 빼는 함수
      */
-
-    return nullptr;
+	if (num->types() == INTEGER) {
+		Integer* _num = dynamic_cast<Integer*>(num);
+		this->set_val(this->real() - _num->val(), this->imag());
+		delete(_num);
+		return this;
+	} else if (num->types() == FLOAT){
+		Float* _float = dynamic_cast<Float*>(num);
+		this->set_val(this->real() - _float->val(), this->imag());
+		delete(_float);
+		return this;
+	} else if(num->types() == COMPLEX) {
+		Complex* _complex = dynamic_cast<Complex*>(num);
+		this->set_val(this->real() - _complex->real(), this->imag() - _complex->imag());
+		delete(_complex);
+		return this;
+	} else {
+		return nullptr;
+	}
 }
 
 Number *Complex::mul(Number * num) {
@@ -72,8 +104,26 @@ Number *Complex::mul(Number * num) {
      * this->실수부 * other->실수부 - this->허수부 * other->허수부가 실수에 들어가고
      * this->실수부 * other->허수부 + this->허수부 * other->실수부가 허수에 들어가게 됨
      */
+	if (num->types() == INTEGER) {
+		Integer* _num = dynamic_cast<Integer*>(num);
+		this->set_val(this->real() * _num->val(), this->imag() * _num->val());
+		delete(_num);
+		return this;
+	} else if (num->types() == FLOAT){
+		Float* _float = dynamic_cast<Float*>(num);
+		this->set_val(this->real() * _float->val(), this->imag() * _float->val());
+		delete(_float);
+		return this;
+	} else if(num->types() == COMPLEX) {
+		Complex* _complex = dynamic_cast<Complex*>(num);
+		this->set_val((this->real() * _complex->real()) - (this->imag() * _complex->imag()),
+					  (this->real() * _complex->imag()) + (this->imag() * _complex->real()));
+		delete(_complex);
+		return this;
 
-    return nullptr;
+	} else {
+		return nullptr;
+	}
 }
 
 Number *Complex::div(Number * num) {
@@ -84,8 +134,22 @@ Number *Complex::div(Number * num) {
      * Type이 COMPLEX 경우 nullptr 를 반환한다.
      * 이 때는 this와 num 모두 delete하지 않는다.
      */
+	if (num->types() == INTEGER) {
+		Integer* _num = dynamic_cast<Integer*>(num);
+		this->set_val(this->real() / _num->val(), this->imag() / _num->val());
+		delete(_num);
+		return this;
+	} else if (num->types() == FLOAT){
+		Float* _float = dynamic_cast<Float*>(num);
+		this->set_val(this->real() * _float->val(), this->imag() * _float->val());
+		delete(_float);
+		return this;
+	} else if(num->types() == COMPLEX) {
+		return nullptr;
 
-    return nullptr;
+	} else {
+		return nullptr;
+	}
 }
 
 double Complex::real() const {
@@ -100,14 +164,14 @@ double Complex::imag() const {
      * pair의 접근은 std::get<>으로 할 수 있는데 0이면 첫번째, 1이면 두번째 값을 접근
      * 이를 이용해 real 값은 0번째 imag값은 1번째에 있으므로 real, imag값을 얻을 수 있음
      */
-    return 0; // real() 을 참고하여 구현할 것!
+    return std::get<1>(value); // real() 을 참고하여 구현할 것!
 }
 
 void Complex::set_val(std::pair<double, double> val) {
     /**
      * 입력받은 val을 value값으로 저장하는 함수 (value의 setter)
      */
-
+	this->value = val;
 }
 
 void Complex::set_val(double real, double imag) {
@@ -116,21 +180,21 @@ void Complex::set_val(double real, double imag) {
      *
      * 이 때 make_pair함수를 이용
      */
-
+	this->value =  std::make_pair(real,imag);
 }
 
 std::pair<double, double> Complex::val() const {
     /**
      * value 값을 return하는 함수 (value의 getter)
      */
-    return 0; // 구현한거 아님..
+    return this->value; // 구현한거 아님..
 }
 
 Number::type Complex::types() const {
     /**
      * Number의 enum 값인 COMPLEX 값을 반환
      */
-    return 0; // 구현한거 아님..!
+    return COMPLEX; // 구현한거 아님..!
 }
 
 std::string Complex::to_string() const {

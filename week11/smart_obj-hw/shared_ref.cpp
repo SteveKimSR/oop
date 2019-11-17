@@ -8,6 +8,7 @@ namespace ptr {
 shared_ref::shared_ref() {
     // TODO: Fill it
     // _mgr의 default 값을 빈 mgr으로 설정
+	this->_mgr = new mgr();
 }
 
 shared_ref::shared_ref(student* student) {
@@ -15,6 +16,9 @@ shared_ref::shared_ref(student* student) {
     // ptr_map에 student의 주소가 있으면 _mgr을 빈 mgr으로 설정
     // ptr_map에 student의 주소가 없으면 _mgr을 student의 메모리를 관리하는 mgr으로 설정하고
     // ptr_map에 key를 student의 주소로 하고 value를 mgr로 등록 ==> student의 주소가 shared_ref의 mgr로 관리되는지 확인 가능
+	if(ptr_map(student)){
+	
+	}
 }
 
 shared_ref::shared_ref(const shared_ref& shared) {
