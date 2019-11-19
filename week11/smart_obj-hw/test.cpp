@@ -86,8 +86,10 @@ int test_student2() {
  * Shared ref TEST
  */
 int test_shared1() {
+	
     shared_ref a(new student(201950219));
-    shared_ref b(new student(201950221));
+	shared_ref b(new student(201950221));
+
 
     int result = 1;
     if (a.get() == nullptr || a.get()->get_student_id() != 201950219) {
@@ -101,7 +103,6 @@ int test_shared1() {
         std::string str("test_shared1: Error is b->get_student_id() != 201950221");
         print_error(str);
     }
-
     return result;
 }
 

@@ -4,7 +4,7 @@ student::student() : human(){
     // TODO: Fill it
     // this의 name의 default값을 nullptr으로 설정
     // this의 student_id의 default값을 -1 으로 설정
-	this->student_id = ;
+	this->student_id = -1;
 }
 
 student::student(char* name) : human(name){
@@ -25,7 +25,7 @@ student::student(char *name, int student_id) : human(name){
     // TODO: Fill it
     // this의 name을 name 값으로 설정
     // this의 student_id를 student_id 값으로 설정
-	this->student_id = student_id
+	this->student_id = student_id;
 }
 
 int student::get_student_id() {
