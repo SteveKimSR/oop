@@ -6,7 +6,14 @@
 #include "data/Integer.h"
 
 int main() {
+    
     {
+        std::string str("{'a':'b'}");
+        json_object *obj = json_object::parse(str);
+        std::string tostr = obj->to_string();
+        std::cout << tostr << std::endl;
+    }
+	{
         std::string str("'a'");
         json_object *obj = json_object::parse(str);
         std::string tostr = obj->to_string();
@@ -15,12 +22,6 @@ int main() {
 
     {
         std::string str("1");
-        json_object *obj = json_object::parse(str);
-        std::string tostr = obj->to_string();
-        std::cout << tostr << std::endl;
-    }
-    {
-        std::string str("{'a':'b'}");
         json_object *obj = json_object::parse(str);
         std::string tostr = obj->to_string();
         std::cout << tostr << std::endl;

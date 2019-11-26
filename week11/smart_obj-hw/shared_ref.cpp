@@ -20,7 +20,8 @@ shared_ref::shared_ref(student* student) {
 		this->_mgr = new mgr();
 	}else{
 		this->_mgr = new mgr(student);
-		ptr_map[student] = this->_mgr; 
+		ptr_map[student] = this->_mgr;
+//		ptr_map.insert(std::make_pair(student, this->_mgr));
 	}
 }
 
