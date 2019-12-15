@@ -33,11 +33,13 @@ void puyo::run(){										// puyo 실행
 		std::cout << "score : " << score << std::endl;
 		std::cout << "" << std::endl;
 		this->gameMap->insertBlock(this->Block, this->position);
-		this->printMap();
-		std::cout << "move: ";
-		this->get_key();
+		this->gameMap->print();
 		this->gameMap->removeBlock(this->Block, this->position);
+		std::cout << "move: ";
+
+		this->get_key();
 		this->key(insertKey);
+
 		if(this->gameMap->checkCollision(this->Block, this->position)){
 			this->gameMap->dropBlock(this->Block, this->position);
 			this->explodeAndScore();
@@ -86,9 +88,6 @@ void puyo::createBlock(){
 	}
 }
 
-void puyo::printMap(){								// 게임 출력.
-	this->gameMap->print();
-}
 
 void puyo::get_key(){								// key를 입력받음. 틀리면 다시 입력받음.
 	while(true){

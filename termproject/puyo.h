@@ -25,10 +25,8 @@ public:
 	void run();										// EXECUTING METHOD
 
 	void createBlock();								// method for making a new block
-	void printMap();								// method for printing map
 	void get_key();									// method for getting key
 	void key(char);									// method for key
-	void removeBlock(block*, pointer*);				// method deleting Block in Gmap
 	void pressX();
 	void explodeAndScore();							// method if collision has occured, explode and score
 

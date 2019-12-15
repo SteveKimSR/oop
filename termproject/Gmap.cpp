@@ -4,7 +4,7 @@
 
 int count = 0;
 
-pointer temp[15];					// to 
+pointer temp[15]; 
 
 Gmap::Gmap(){}
 
