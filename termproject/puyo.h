@@ -16,7 +16,6 @@ private:
 
 	char insertKey;									// key from user
 	int score;										// score
-	bool onGoing;									// boolean checking if it needs to create a block or not
 public:
 	puyo();											// constructor
 

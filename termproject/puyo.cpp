@@ -17,7 +17,6 @@ puyo::puyo(){											// puyo 생성자.
 	this->Block = nullptr;
 	this->insertKey = '0';
 	this->score = 0;
-	this->onGoing = true;
 }
 void puyo::set_seed(int s){
 	srand((unsigned int)s);
