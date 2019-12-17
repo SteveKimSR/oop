@@ -41,6 +41,7 @@ void puyo::run(){										// puyo 실행
 
 		if(this->gameMap->checkCollision(this->Block, this->position)){
 			this->gameMap->dropBlock(this->Block, this->position);
+
 			this->explodeAndScore();
 
 			this->position->reset();

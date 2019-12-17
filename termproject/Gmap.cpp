@@ -218,9 +218,9 @@ void Gmap::dropBlock(block* b, pointer* p){
 	}else if(type == 3){
 		if(s == 1){
 			this->field[this->checkEnd(x)][x] = b->get_color(4);
-			this->field[this->checkEnd(x-1)][x-1] = b->get_color(3);
+			this->field[this->checkEnd(x-1)][x-1] = b->get_color(1);
 			this->field[this->checkEnd(x)][x] = b->get_color(2);
-			this->field[this->checkEnd(x+1)][x+1] = b->get_color(1);
+			this->field[this->checkEnd(x+1)][x+1] = b->get_color(3);
 			this->field[this->checkEnd(x)][x] = b->get_color(0);
 		}else if(s == 2){
 			this->field[this->checkEnd(x)][x] = b->get_color(3);
@@ -242,7 +242,6 @@ void Gmap::dropBlock(block* b, pointer* p){
 			this->field[this->checkEnd(x)][x] = b->get_color(3);
 		}
 	}
-	print();
 }
 int Gmap::checkEnd(int x){
 	int temp = 11;
